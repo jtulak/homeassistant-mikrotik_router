@@ -18,6 +18,8 @@ from homeassistant.helpers import entity_registry
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 from homeassistant.util.dt import utcnow
 
+from .helper import parse_routeros_major_minor
+
 
 from homeassistant.const import (
     CONF_NAME,
@@ -1603,11 +1605,9 @@ class MikrotikCoordinator(DataUpdateCoordinator[None]):
             full_version = self.ds["fw-update"].get("installed-version")
             try:
                 # RouterOS may report "7.23 (stable)", "7.23.1", etc.
-                match = re.search(r"(\d+)\.(\d+)", str(full_version))
-                if not match:
-                    raise ValueError("Version format is not recognized")
-                self.major_fw_version = int(match.group(1))
-                self.minor_fw_version = int(match.group(2))
+                self.major_fw_version, self.minor_fw_version = (
+                    parse_routeros_major_minor(full_version)
+                )
                 _LOGGER.debug(
                     "Mikrotik %s FW version major=%s minor=%s (%s)",
                     self.host,

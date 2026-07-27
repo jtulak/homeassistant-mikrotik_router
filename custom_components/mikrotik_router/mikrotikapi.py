@@ -141,8 +141,22 @@ class MikrotikAPI:
                 self._host, self._username, self._password, **kwargs
             )
         except TypeError as e:
-            # Retry once with the alternate login kwarg name used by the
-            # other major librouteros API (3.x vs 4.x).
+            # Retry only for login kwarg name mismatches between librouteros
+            # 3.x (login_methods) and 4.x (login_method).
+            error_text = str(e)
+            if "login_method" not in error_text:
+                if not self.connection_error_reported:
+                    _LOGGER.error(
+                        "Mikrotik %s error while connecting: %s",
+                        self._host,
+                        e,
+                    )
+                    self.connection_error_reported = True
+                self.error_to_strings(error_text)
+                self._connection = None
+                self.lock.release()
+                return False
+
             if not self._swap_login_kwarg(kwargs):
                 if not self.connection_error_reported:
                     _LOGGER.error(

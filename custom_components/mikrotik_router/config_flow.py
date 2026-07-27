@@ -171,15 +171,11 @@ class MikrotikControllerConfigFlow(ConfigFlow, domain=DOMAIN):
 #   MikrotikControllerOptionsFlowHandler
 # ---------------------------
 class MikrotikControllerOptionsFlowHandler(OptionsFlow):
-    """Handle options."""
+    """Handle options.
 
-    def __init__(self):
-        """Initialize options flow.
-
-        Home Assistant sets ``config_entry`` on the flow instance; do not assign
-        it here (raises on recent HA versions).
-        """
-        self.options = {}
+    Do not override ``__init__`` or assign ``config_entry``; Home Assistant sets
+    ``config_entry`` on the flow instance.
+    """
 
     async def async_step_init(self, user_input=None):
         """Manage the options."""
