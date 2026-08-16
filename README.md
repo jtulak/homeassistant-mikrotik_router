@@ -1,3 +1,5 @@
+**IMPORTANT: This is just a temporary personal fork to install unreleased version of this integration. Once upstream gets 2.3 or later into HACS, this repo should be removed.**
+
 # Mikrotik Router
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/tomaae/homeassistant-mikrotik_router?style=plastic)
 [![hacs_badge](https://img.shields.io/badge/HACS-Default-41BDF5.svg?style=plastic)](https://github.com/hacs/integration)
