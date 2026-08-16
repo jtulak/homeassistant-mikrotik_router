@@ -1,5 +1,5 @@
 {
-    "name": "Mikrotik Router",
+    "name": "Mikrotik Router - custom (jtulak) - remove when upstream releases 2.3+",
     "homeassistant": "2024.3.0",
     "render_readme": false,
     "zip_release": false,
